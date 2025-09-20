@@ -1,0 +1,155 @@
+// Color Variables based on Figma Design
+$colors: (
+  // Primary colors from the design
+  primary: #4F46E5,
+  primary-light: #818CF8,
+  primary-dark: #3730A3,
+  
+  // Background colors
+  bg-primary: #FFFFFF,
+  bg-secondary: #F8FAFC,
+  bg-tertiary: #F1F5F9,
+  bg-card: #FFFFFF,
+  bg-hover: #F8FAFC,
+  
+  // Text colors
+  text-primary: #1E293B,
+  text-secondary: #64748B,
+  text-tertiary: #94A3B8,
+  text-light: #CBD5E1,
+  
+  // Border colors
+  border-light: #E2E8F0,
+  border-medium: #CBD5E1,
+  border-dark: #94A3B8,
+  
+  // Status colors
+  success: #10B981,
+  success-light: #D1FAE5,
+  warning: #F59E0B,
+  warning-light: #FEF3C7,
+  error: #EF4444,
+  error-light: #FEE2E2,
+  info: #3B82F6,
+  info-light: #DBEAFE,
+  
+  // Progress status colors
+  progress: #8B5CF6,
+  complete: #10B981,
+  pending: #F59E0B,
+  approved: #10B981,
+  rejected: #EF4444
+);
+
+// Typography
+$font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+$font-sizes: (
+  xs: 0.75rem,    // 12px
+  sm: 0.875rem,   // 14px
+  base: 1rem,     // 16px
+  lg: 1.125rem,   // 18px
+  xl: 1.25rem,    // 20px
+  2xl: 1.5rem,    // 24px
+  3xl: 1.875rem,  // 30px
+  4xl: 2.25rem    // 36px
+);
+
+$font-weights: (
+  normal: 400,
+  medium: 500,
+  semibold: 600,
+  bold: 700
+);
+
+// Spacing
+$spacing: (
+  0: 0,
+  1: 0.25rem,   // 4px
+  2: 0.5rem,    // 8px
+  3: 0.75rem,   // 12px
+  4: 1rem,      // 16px
+  5: 1.25rem,   // 20px
+  6: 1.5rem,    // 24px
+  8: 2rem,      // 32px
+  10: 2.5rem,   // 40px
+  12: 3rem,     // 48px
+  16: 4rem,     // 64px
+  20: 5rem      // 80px
+);
+
+// Layout dimensions
+$sidebar-width: 18%;
+$sidebar-collapsed-width: 60px;
+$topbar-height: 60px;
+$rightbar-width: 20%;
+
+// Border radius
+$border-radius: (
+  sm: 0.125rem,   // 2px
+  base: 0.25rem,  // 4px
+  md: 0.375rem,   // 6px
+  lg: 0.5rem,     // 8px
+  xl: 0.75rem,    // 12px
+  2xl: 1rem       // 16px
+);
+
+// Shadows
+$shadows: (
+  sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05),
+  base: (0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)),
+  md: (0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)),
+  lg: (0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)),
+  xl: (0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04))
+);
+
+@use 'sass:map';
+
+// Helper function to get color
+@function color($key) {
+  @return map.get($colors, $key);
+}
+
+// Helper function to get spacing
+@function space($key) {
+  @return map.get($spacing, $key);
+}
+
+// Helper function to get font size
+@function font-size($key) {
+  @return map.get($font-sizes, $key);
+}
+
+// Helper function to get font weight
+@function font-weight($key) {
+  @return map.get($font-weights, $key);
+}
+
+// Helper function to get border radius
+@function radius($key) {
+  @return map.get($border-radius, $key);
+}
+
+// Helper function to get shadow
+@function shadow($key) {
+  @return map.get($shadows, $key);
+}
+
+// Responsive mixins
+@mixin mobile {
+  @media (max-width: 768px) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (max-width: 1024px) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: 1025px) {
+    @content;
+  }
+}
