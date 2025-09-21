@@ -13,7 +13,7 @@ import {
 } from 'lucide-react';
 import { useTheme } from '../../contexts/ThemeContext';
 import { useSidebar } from './Layout';
-import './Header.css';
+import './Header.scss';
 
 const Header: React.FC = () => {
   const { theme, toggleTheme } = useTheme();

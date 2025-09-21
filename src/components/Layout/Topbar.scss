@@ -2,8 +2,8 @@
 
 .topbar {
   height: 68px;
-  background-color: #ffffff;
-  border-bottom: 1px solid #e5e7eb;
+  background-color: var(--bg-card);
+  border-bottom: 1px solid var(--border-light);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -21,7 +21,7 @@
       .breadcrumb-btn {
         background: none;
         border: none;
-        color: #6b7280;
+        color: var(--text-secondary);
         cursor: pointer;
         padding: 6px;
         border-radius: 6px;
@@ -31,20 +31,20 @@
         justify-content: center;
 
         &:hover {
-          background-color: #f3f4f6;
-          color: #374151;
+          background-color: var(--bg-hover);
+          color: var(--text-primary);
         }
       }
 
       .breadcrumb-text {
-        color: #374151;
+        color: var(--text-secondary);
         font-size: 14px;
         font-weight: 500;
         margin: 0 8px;
       }
 
       .breadcrumb-current {
-        color: #111827;
+        color: var(--text-primary);
         font-size: 14px;
         font-weight: 600;
       }
@@ -63,7 +63,7 @@
       .search-icon {
         position: absolute;
         left: 12px;
-        color: #9ca3af;
+        color: var(--text-tertiary);
         z-index: 1;
       }
 
@@ -71,21 +71,21 @@
         width: 160px;
         height: 28px;
         padding: 0 16px 0 36px;
-        border: 1px solid #d1d5db;
+        border: 1px solid var(--border-light);
         border-radius: 8px;
-        background-color: #ffffff;
-        color: #111827;
+        background-color: var(--bg-card);
+        color: var(--text-primary);
         font-size: 14px;
         transition: all 0.2s ease;
 
         &:focus {
           outline: none;
-          border-color: #3b82f6;
-          box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+          border-color: var(--accent-primary);
+          box-shadow: 0 0 0 3px #{color(ring-primary-10)};
         }
 
         &::placeholder {
-          color: #9ca3af;
+          color: var(--text-tertiary);
         }
       }
     }
@@ -93,15 +93,15 @@
        display: flex;
        align-items: center;
        justify-content: center;
-       gap: 8px;
+       gap: 16px;
        margin-left: 16px;
 
        .icon-btn {
          background: none;
          border: none;
-         color: #6b7280;
+         color: var(--text-secondary);
          cursor: pointer;
-         padding: 8px;
+        //  padding: 8px;
          border-radius: 6px;
          transition: all 0.2s ease;
          display: flex;
@@ -109,8 +109,8 @@
          justify-content: center;
 
          &:hover {
-           background-color: #f3f4f6;
-           color: #374151;
+           background-color: var(--bg-hover);
+           color: var(--text-primary);
          }
        }
      }

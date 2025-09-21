@@ -11,7 +11,7 @@
     padding: 28px;
     overflow-x: hidden;
     overflow-y: auto;
-    background-color: #ffffff;
+    background-color: var(--bg-card);
 
     .content-wrapper {
       max-width: 100%;

@@ -1,5 +1,88 @@
 @use 'variables' as *;
 
+/* Theme variables and transitions */
+:root {
+  // Core semantic tokens (light)
+  --bg-color: #{color(bg-primary)};
+  --text-color: #{color(text-primary)};
+  --border-color: #{color(border-light)};
+  --card-bg: #{color(bg-card)};
+
+  // Extended background tokens
+  --bg-primary: #{color(bg-primary)};
+  --bg-secondary: #{color(bg-secondary)};
+  --bg-tertiary: #{color(bg-tertiary)};
+  --bg-card: #{color(bg-card)};
+  --bg-hover: #{color(bg-hover)};
+
+  // Text tokens
+  --text-primary: #{color(text-primary)};
+  --text-secondary: #{color(text-secondary)};
+  --text-tertiary: #{color(text-tertiary)};
+
+  // Border tokens
+  --border-light: #{color(border-light)};
+  --border-medium: #{color(border-medium)};
+  --border-dark: #{color(border-dark)};
+
+  // Accent tokens
+  --accent-primary: #{color(primary)};
+  --accent-success: #{color(success)};
+  --accent-warning: #{color(warning)};
+  --accent-error: #{color(error)};
+  --accent-info: #{color(info)};
+
+  // Shadows
+  --shadow-sm: #{shadow(sm)};
+  --shadow-md: #{shadow(md)};
+  --shadow-lg: #{shadow(lg)};
+  --shadow-xl: #{shadow(xl)};
+}
+
+[data-theme="dark"] {
+  // Core semantic tokens (dark)
+  --bg-color: #{color(slate-900)};
+  --text-color: #{color(text-inverse)};
+  --border-color: #{color(border-strong-dark)};
+  --card-bg: #{color(gray-900)};
+
+  // Extended background tokens
+  --bg-primary: #{color(slate-900)};
+  --bg-secondary: #{color(gray-900)};
+  --bg-tertiary: #{color(gray-800)};
+  --bg-card: #{color(gray-900)};
+  --bg-hover: #{color(gray-800)};
+
+  // Text tokens
+  --text-primary: #{color(text-inverse)};
+  --text-secondary: #{color(text-light)};
+  --text-tertiary: #{color(text-tertiary)};
+
+  // Border tokens
+  --border-light: #{color(border-strong-dark)};
+  --border-medium: #{color(border-strong-dark)};
+  --border-dark: #{color(border-dark)};
+
+  // Accent tokens stay same in dark mode
+  --accent-primary: #{color(primary)};
+  --accent-success: #{color(success)};
+  --accent-warning: #{color(warning)};
+  --accent-error: #{color(error)};
+  --accent-info: #{color(info)};
+
+  // Shadows
+  --shadow-sm: #{shadow(sm)};
+  --shadow-md: #{shadow(md)};
+  --shadow-lg: #{shadow(lg)};
+  --shadow-xl: #{shadow(xl)};
+}
+
+html, body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 200ms ease, color 200ms ease;
+}
+
 // CSS Reset and Base Styles
 *,
 *::before,

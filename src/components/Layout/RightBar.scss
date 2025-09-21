@@ -3,8 +3,8 @@
 .rightbar {
   width: $rightbar-width;
   height: 100vh;
-  background-color: color(bg-card);
-  border-left: 1px solid color(border-light);
+  background-color: var(--bg-card);
+  border-left: 1px solid var(--border-light);
   padding: space(6) space(4);
   overflow-y: auto;
   z-index: 99;
@@ -15,7 +15,7 @@
     .section-title {
       font-size: font-size(lg);
       font-weight: font-weight(semibold);
-      color: color(text-primary);
+      color: var(--text-primary);
       margin-bottom: space(4);
     }
   }
@@ -35,18 +35,18 @@
       cursor: pointer;
 
       &:hover {
-        background-color: color(bg-hover);
+        background-color: var(--bg-hover);
       }
 
       .notification-icon {
         width: 32px;
         height: 32px;
-        background-color: color(bg-secondary);
+        background-color: var(--bg-secondary);
         border-radius: radius(lg);
         display: flex;
         align-items: center;
         justify-content: center;
-        color: color(text-secondary);
+        color: var(--text-secondary);
         flex-shrink: 0;
       }
 
@@ -56,7 +56,7 @@
 
         .notification-title {
           font-size: font-size(sm);
-          color: color(text-primary);
+          color: var(--text-primary);
           // margin: 0 0 space(1) 0;
           line-height: 1.4;
           display: -webkit-box;
@@ -67,7 +67,7 @@
 
         .notification-time {
           font-size: font-size(xs);
-          color: color(text-tertiary);
+          color: var(--text-tertiary);
         }
       }
     }
@@ -88,7 +88,7 @@
       cursor: pointer;
 
       &:hover {
-        background-color: color(bg-hover);
+        background-color: var(--bg-hover);
       }
 
       .activity-avatar {
@@ -96,7 +96,7 @@
         height: 32px;
         border-radius: 50%;
         object-fit: cover;
-        border: 2px solid color(border-light);
+        border: 2px solid var(--border-light);
         flex-shrink: 0;
       }
 
@@ -106,7 +106,7 @@
 
         .activity-text {
           font-size: font-size(sm);
-          color: color(text-primary);
+          color: var(--text-primary);
           margin: 0 0 space(1) 0;
           line-height: 1.4;
           display: -webkit-box;
@@ -117,7 +117,7 @@
 
         .activity-time {
           font-size: font-size(xs);
-          color: color(text-tertiary);
+          color: var(--text-tertiary);
         }
       }
     }
@@ -146,13 +146,13 @@
         height: 32px;
         border-radius: 50%;
         object-fit: cover;
-        border: 2px solid color(border-light);
+        border: 2px solid var(--border-light);
         flex-shrink: 0;
       }
 
       .contact-name {
         font-size: font-size(sm);
-        color: color(text-primary);
+        color: var(--text-primary);
         font-weight: font-weight(medium);
       }
     }

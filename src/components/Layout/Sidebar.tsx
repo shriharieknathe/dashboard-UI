@@ -1,11 +1,10 @@
 import { motion } from "framer-motion";
-import {
-  ChevronRight
-} from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Icon from "../../components/icon/icon";
 import "./Sidebar.scss";
+import { useTheme } from "@/contexts/ThemeContext";
 
 // Custom ByeWindIcon component
 const ByeWindIcon = () => (
@@ -53,11 +52,14 @@ const Sidebar: React.FC = () => {
     "pages",
     "user-profile",
   ]);
+  const { theme } = useTheme();
 
   const clickableIds = ["default", "order-list"];
 
   // Favorites and Recently items (side by side)
-  const favoriteItems: (NavItem & { customIcon?: { name: string; width?: string; height?: string } })[] = [
+  const favoriteItems: (NavItem & {
+    customIcon?: { name: string; width?: string; height?: string };
+  })[] = [
     {
       id: "overview",
       title: "Overview",
@@ -77,14 +79,22 @@ const Sidebar: React.FC = () => {
     {
       id: "default",
       title: "Default",
-      customIcon: { name: "default", width: "18px", height: "18px" },
+      customIcon: {
+        name: `${theme === "light" ? "default" : "dark_default"}`,
+        width: "18px",
+        height: "18px",
+      },
       path: "/dashboard",
       isStatic: true,
     },
     {
       id: "ecommerce",
       title: "eCommerce",
-      customIcon: { name: "ecommerce", width: "18px", height: "14px" },
+      customIcon: {
+        name: `${theme === "light" ? "ecommerce" : "dark_ecommerce"}`,
+        width: "18px",
+        height: "14px",
+      },
       path: "/ecommerce",
       children: [
         { id: "ecom-overview", title: "Overview", path: "/ecommerce" },
@@ -94,7 +104,11 @@ const Sidebar: React.FC = () => {
     {
       id: "projects-dash",
       title: "Projects",
-      customIcon: { name: "projects", width: "18px", height: "14px" },
+      customIcon: {
+        name: `${theme === "light" ? "projects" : "dark_projects"}`,
+        width: "18px",
+        height: "14px",
+      },
       path: "/projects",
       children: [
         { id: "order-list", title: "Order List", path: "/order-list" },
@@ -104,7 +118,11 @@ const Sidebar: React.FC = () => {
     {
       id: "online-courses",
       title: "Online Courses",
-      customIcon: { name: "online_course", width: "18px", height: "16px" },
+      customIcon: {
+        name: `${theme === "light" ? "online_course" : "dark_online_course"}`,
+        width: "18px",
+        height: "16px",
+      },
       path: "/online-courses",
       children: [
         { id: "courses-browse", title: "Browse", path: "/online-courses" },
@@ -118,7 +136,11 @@ const Sidebar: React.FC = () => {
     {
       id: "user-profile",
       title: "User Profile",
-      customIcon: { name: "user_profile", width: "14px", height: "18px" },
+      customIcon: {
+        name: `${theme === "light" ? "user_profile" : "dark_user_profile"}`,
+        width: "14px",
+        height: "18px",
+      },
       children: [
         {
           id: "overview-profile",
@@ -138,7 +160,11 @@ const Sidebar: React.FC = () => {
     {
       id: "account",
       title: "Account",
-      customIcon: { name: "accounts", width: "18px", height: "14px" },
+      customIcon: {
+        name: `${theme === "light" ? "accounts" : "dark_accounts"}`,
+        width: "18px",
+        height: "14px",
+      },
       children: [
         { id: "account-settings", title: "Settings" },
         { id: "account-billing", title: "Billing" },
@@ -147,7 +173,11 @@ const Sidebar: React.FC = () => {
     {
       id: "corporate",
       title: "Corporate",
-      customIcon: { name: "corporate", width: "20px", height: "15px" },
+      customIcon: {
+        name: `${theme === "light" ? "corporate" : "dark_corporate"}`,
+        width: "20px",
+        height: "15px",
+      },
       children: [
         { id: "corporate-about", title: "About Us" },
         { id: "corporate-careers", title: "Careers" },
@@ -156,7 +186,11 @@ const Sidebar: React.FC = () => {
     {
       id: "blog",
       title: "Blog",
-      customIcon: { name: "blog", width: "16px", height: "16px" },
+      customIcon: {
+        name: `${theme === "light" ? "blog" : "dark_blog"}`,
+        width: "16px",
+        height: "16px",
+      },
       children: [
         { id: "blog-all", title: "All Posts" },
         { id: "blog-new", title: "Add New" },
@@ -165,7 +199,11 @@ const Sidebar: React.FC = () => {
     {
       id: "social",
       title: "Social",
-      customIcon: { name: "social", width: "18px", height: "18px" },
+      customIcon: {
+        name: `${theme === "light" ? "social" : "dark_social"}`,
+        width: "18px",
+        height: "18px",
+      },
       children: [
         { id: "social-feed", title: "Feed" },
         { id: "social-friends", title: "Friends" },
@@ -231,7 +269,14 @@ const Sidebar: React.FC = () => {
     const content = (
       <div className="nav-link-content">
         {item.customIcon ? (
-          <Icon name={item.customIcon.name} width={item.customIcon.width ?? ""} height={item.customIcon.height ?? ""} color="" id="" strikeThrough={false} />
+          <Icon
+            name={item.customIcon.name}
+            width={item.customIcon.width ?? ""}
+            height={item.customIcon.height ?? ""}
+            color=""
+            id=""
+            strikeThrough={false}
+          />
         ) : (
           item.icon && <item.icon size={16} className="nav-icon" />
         )}
@@ -281,7 +326,14 @@ const Sidebar: React.FC = () => {
               </motion.div>
             )}
             {item.customIcon ? (
-              <Icon name={item.customIcon.name} width={item.customIcon.width ?? ""} height={item.customIcon.height ?? ""} color="" id="" strikeThrough={false} />
+              <Icon
+                name={item.customIcon.name}
+                width={item.customIcon.width ?? ""}
+                height={item.customIcon.height ?? ""}
+                color=""
+                id=""
+                strikeThrough={false}
+              />
             ) : (
               item.icon && <item.icon size={16} className="nav-icon" />
             )}
