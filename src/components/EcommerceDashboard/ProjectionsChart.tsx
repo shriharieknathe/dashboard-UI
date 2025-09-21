@@ -34,8 +34,8 @@ const ProjectionsChart: React.FC = () => {
               axisLine={false}
               tickLine={false}
               tick={{ fontSize: 14, fill: "var(--chart-tick)" }}
-              domain={CHART_CONFIG.projections.yAxisDomain}
-              ticks={CHART_CONFIG.projections.yAxisTicks}
+              domain={[0, 30]}
+              ticks={[0, 10, 20, 30]}
               tickFormatter={(value) => `${value}M`}
             />
             <Bar

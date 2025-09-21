@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import { MOCK_ORDERS, PAGE_SIZE, statusOrderAsc, Order } from "./constants";
+import { MOCK_ORDERS, PAGE_SIZE, statusOrderAsc } from "./constants";
 import FilterBar from "./FilterBar";
 import OrderTable from "./OrderTable";
 import MobileOrdersContainer from "./MobileOrdersContainer";
@@ -13,7 +13,7 @@ const OrderList: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [sortMode, setSortMode] = useState<SortMode>("none");
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
-  const [isMobile, setIsMobile] = useState(false);
+  const [, setIsMobile] = useState(false);
 
   // Check if we're on mobile/tablet
   React.useEffect(() => {

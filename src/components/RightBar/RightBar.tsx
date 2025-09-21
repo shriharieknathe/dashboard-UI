@@ -5,8 +5,6 @@ import {
   Bug,
   UserPlus,
   Upload,
-  Database,
-  Trash2,
   X,
 } from 'lucide-react';
 import './RightBar.scss';
