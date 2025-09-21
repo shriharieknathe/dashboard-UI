@@ -1,4 +1,4 @@
-@use '../../styles/variables' as *;
+@use "../../styles/variables" as *;
 
 .sidebar {
   width: $sidebar-width;
@@ -45,113 +45,201 @@
     padding: 0 space(4);
     overflow-y: auto;
 
-    .nav-item {
-      margin-bottom: space(1);
+    // Favorites and Recently Section - Side by Side
+    .favorites-recently-section {
+      margin-bottom: space(6);
 
-      .nav-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: space(3) space(2);
-        cursor: pointer;
-        transition: all 0.2s ease;
+      .section-headers {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: space(2);
+        margin-bottom: space(3);
 
-        .nav-title {
+        .section-title {
           font-size: font-size(xs);
           font-weight: font-weight(medium);
           color: color(text-tertiary);
-          text-transform: uppercase;
           letter-spacing: 0.5px;
+          padding: 4px 12px; // requested
+        }
+      }
+
+      .favorite-items {
+        display: flex;
+        flex-direction: column;
+        gap: 4px; // margin between items
+      }
+    }
+
+    // Static Navigation Sections
+    .nav-section {
+      margin-bottom: space(6);
+
+      .section-header {
+        display: flex;
+        align-items: center;
+        padding: 4px 12px; // requested
+        margin-bottom: 4px; // space below header
+
+        &.static {
+          cursor: default;
         }
 
-        .nav-chevron {
+        .section-title {
+          font-size: font-size(xs);
+          font-weight: font-weight(medium);
+          color: color(text-tertiary);
+          letter-spacing: 0.5px;
+        }
+      }
+
+      .section-items {
+        display: flex;
+        flex-direction: column;
+        gap: 4px; // each item margin-bottom 4px effect
+      }
+    }
+
+    // Navigation Links
+    .nav-link {
+      display: flex;
+      align-items: center;
+      padding: 4px 28px; // default for top-level items
+      margin: 0; // gaps controlled by parent
+      border-radius: radius(md);
+      text-decoration: none;
+      color: color(text-secondary);
+      transition: all 0.2s ease;
+      position: relative;
+      cursor: pointer;
+
+      &:hover {
+        background-color: color(bg-hover);
+        color: color(text-primary);
+
+        .nav-icon {
+          color: color(text-primary);
+        }
+      }
+
+      &.active {
+        background-color: color(bg-tertiary);
+        color: color(text-primary);
+        border: none;
+
+        &::before {
+          content: "";
+          position: absolute;
+          left: 0;
+          top: 50%;
+          transform: translateY(-50%);
+          height: 60%;
+          width: 3.5px;
+          background-color: color(text-primary);
+          border-radius: 0 4px 4px 0;
+        }
+
+        .nav-icon {
+          color: color(text-primary);
+        }
+
+        .nav-text {
+          font-weight: font-weight(semibold);
+        }
+      }
+
+      .nav-link-content {
+        display: flex;
+        align-items: center;
+        gap: space(3);
+        width: 100%;
+
+        .left-chevron {
           color: color(text-tertiary);
           display: flex;
           align-items: center;
           justify-content: center;
-        }
-      }
-
-      .nav-link {
-        display: block;
-        padding: space(2) space(2);
-        margin: space(1) 0;
-        border-radius: radius(md);
-        text-decoration: none;
-        color: color(text-secondary);
-        transition: all 0.2s ease;
-        position: relative;
-
-        &:hover {
-          background-color: color(bg-hover);
-          color: color(text-primary);
+          margin-right: space(1);
         }
 
-        &.active {
-          background-color: color(bg-tertiary);
-          color: color(text-primary);
-          border: 1px solid color(border-light);
-
-          .nav-icon {
-            color: color(text-primary);
-          }
+        .nav-icon {
+          color: color(text-tertiary);
+          flex-shrink: 0;
         }
 
-        &.level-2 {
-          margin-left: space(4);
-          padding-left: space(6);
-
-          &::before {
-            content: '';
-            position: absolute;
-            left: space(4);
-            top: 50%;
-            transform: translateY(-50%);
-            width: 4px;
-            height: 4px;
-            background-color: color(text-tertiary);
-            border-radius: 50%;
-          }
-
-          &.active {
-            background-color: color(bg-tertiary);
-            border: 1px solid color(border-light);
-          }
-
-          &.active::before {
-            background-color: color(text-primary);
-          }
-        }
-
-        .nav-link-content {
-          display: flex;
+        // Ensure custom Icon component aligns the same as lucide icons
+        .icon {
+          margin: 0; // override global negative margin
+          line-height: 0; // remove baseline gap
+          display: inline-flex;
           align-items: center;
-          gap: space(3);
+          justify-content: center;
 
-          .nav-icon {
-            color: color(text-tertiary);
-            flex-shrink: 0;
-          }
-
-          .nav-text {
-            flex: 1;
-            font-size: font-size(sm);
-            font-weight: font-weight(medium);
-          }
-
-          .nav-chevron {
-            margin-left: auto;
-            color: color(text-tertiary);
-            display: flex;
+          .svg_wrapper {
+            display: inline-flex;
             align-items: center;
             justify-content: center;
           }
         }
+
+        .nav-text {
+          flex: 1;
+          font-weight: 400;
+          font-size: 14px;
+          line-height: 20px;
+          color: #1c1c1c;
+        }
+      }
+    }
+
+    // Accordion Items
+    .accordion-item {
+      .accordion-header {
+        cursor: pointer;
+        padding: 4px 8px 4px 0; // requested for accordion header
+      }
+    }
+
+    // Child Links (nested items)
+    .child-link {
+      margin-left: 30px;
+      padding: 4px 8px 4px 0; // requested
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+      color: #1c1c1c;
+
+      &:hover {
+        background-color: color(bg-hover);
+        color: color(text-primary);
       }
 
-      .nav-children {
-        overflow: hidden;
+      &.non-clickable {
+        cursor: default;
+
+        &:hover {
+          background-color: transparent;
+          color: color(text-secondary);
+        }
       }
+
+      &.active {
+        background-color: color(bg-tertiary);
+        color: color(text-primary);
+        font-weight: font-weight(semibold);
+      }
+
+      .nav-text {
+        font-size: font-size(sm);
+        font-weight: font-weight(medium);
+        padding-left: 24px;
+      }
+    }
+
+    // Animation for children
+    .nav-children {
+      overflow: hidden;
+      margin-top: space(1);
     }
   }
 

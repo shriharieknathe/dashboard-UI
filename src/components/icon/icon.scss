@@ -1,0 +1,12 @@
+.icon {
+  display: inline-flex;
+  position: relative;
+  width: fit-content;
+  margin: -5px 0px 0px 0px;
+
+  .svg_wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

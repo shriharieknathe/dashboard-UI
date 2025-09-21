@@ -4,12 +4,12 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContaine
 import './EcommerceDashboard.scss';
 
 const projectionsData = [
-  { month: 'Jan', value: 20 },
-  { month: 'Feb', value: 22 },
-  { month: 'Mar', value: 28 },
-  { month: 'Apr', value: 25 },
-  { month: 'May', value: 30 },
-  { month: 'Jun', value: 27 },
+  { month: 'Jan', actual: 16, projection: 4 },
+  { month: 'Feb', actual: 20, projection: 5 },
+  { month: 'Mar', actual: 17, projection: 4 },
+  { month: 'Apr', actual: 22, projection: 6 },
+  { month: 'May', actual: 14, projection: 4 },
+  { month: 'Jun', actual: 20, projection: 5 },
 ];
 
 const revenueData = [
@@ -36,10 +36,10 @@ const productsData = [
 ];
 
 const salesData = [
-  { name: 'Direct', value: 300.56, color: '#0ea5e9' },
-  { name: 'Affiliate', value: 135.18, color: '#8b5cf6' },
-  { name: 'Sponsored', value: 154.02, color: '#f43f5e' },
-  { name: 'E-mail', value: 48.96, color: '#10b981' },
+  { name: 'Direct', value: 300.56, color: '#111827' },   // black
+  { name: 'Affiliate', value: 135.18, color: '#a7f3d0' }, // light green
+  { name: 'Sponsored', value: 154.02, color: '#cbd5e1' }, // light gray-blue
+  { name: 'E-mail', value: 48.96, color: '#93c5fd' },     // soft blue
 ];
 
 const locations = [
@@ -108,16 +108,28 @@ const EcommerceDashboard: React.FC = () => {
 
         {/* Right Side - Projections vs Actuals Chart (50% width) */}
         <div className="layer-right">
-          <div className="chart-container  projection-chart">
+          <div className="chart-container projection-chart">
             <div className="chart-title">Projections vs Actuals</div>
             <div className="chart-content">
               <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={projectionsData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-                  <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                  <XAxis dataKey="month" axisLine={false} tickLine={false} />
-                  <YAxis axisLine={false} tickLine={false} tickFormatter={(v) => `${v}M`} />
-                  <Tooltip />
-                  <Bar dataKey="value" fill="#0ea5e9" radius={[4, 4, 0, 0]} />
+                <BarChart data={projectionsData} margin={{ top: 10, right: 0, left: -25, bottom: 0 }}>
+                  <CartesianGrid strokeDasharray="3 0" stroke="var(--border-light)" vertical={false} />
+                  <XAxis 
+                    dataKey="month" 
+                    axisLine={false}
+                    tickLine={false}
+                    tick={{ fontSize: 14, fill: 'var(--text-tertiary)' }}
+                  />
+                  <YAxis 
+                    axisLine={false}
+                    tickLine={false}
+                    tick={{ fontSize: 14, fill: 'var(--text-tertiary)' }}
+                    domain={[0, 30]}
+                    ticks={[0, 10, 20, 30]}
+                    tickFormatter={(value) => `${value}M`}
+                  />
+                  <Bar dataKey="actual" stackId="a" fill="#A9B8E2" radius={[5, 5, 0, 0]} barSize={25} />
+                  <Bar dataKey="projection" stackId="a" fill="#D2D9EE" radius={[5, 5, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </div>

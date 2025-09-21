@@ -1,7 +1,7 @@
 @use "../../styles/variables" as *;
 
 .topbar {
-  height: 56px;
+  height: 68px;
   background-color: #ffffff;
   border-bottom: 1px solid #e5e7eb;
   display: flex;
@@ -68,8 +68,8 @@
       }
 
       .search-input {
-        width: 280px;
-        height: 36px;
+        width: 160px;
+        height: 28px;
         padding: 0 16px 0 36px;
         border: 1px solid #d1d5db;
         border-radius: 8px;
@@ -93,7 +93,7 @@
        display: flex;
        align-items: center;
        justify-content: center;
-       gap: 16px;
+       gap: 8px;
        margin-left: 16px;
 
        .icon-btn {

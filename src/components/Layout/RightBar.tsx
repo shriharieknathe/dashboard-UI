@@ -13,10 +13,10 @@ import './RightBar.scss';
 const RightBar: React.FC = () => {
   const location = useLocation();
 
-  // Only show RightBar on eCommerce dashboard
-  const shouldShowRightBar = location.pathname === '/' || location.pathname.includes('ecommerce');
+  // Hide RightBar only on order-list screen  
+  const shouldHideRightBar = location.pathname === '/orders' || location.pathname === '/order-list';
 
-  if (!shouldShowRightBar) {
+  if (shouldHideRightBar) {
     return null;
   }
 

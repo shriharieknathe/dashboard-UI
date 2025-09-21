@@ -8,12 +8,11 @@
   .chart-header {
     display: flex;
     flex-direction: column;
-    gap: space(2);
-    margin-bottom: space(4);
+    margin-bottom: space(6);
 
     .chart-title {
-      font-size: font-size(lg);
-      font-weight: font-weight(semibold);
+      font-size: font-size(xl);
+      font-weight: font-weight(bold);
       color: color(text-primary);
       margin: 0;
     }

@@ -1,15 +1,8 @@
+import { Bell, Clock, FileText, Search, Star, Sun } from "lucide-react";
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
-import { 
-  Search, 
-  Star, 
-  LayoutGrid,
-  Sun,
-  Clock,
-  Bell,
-  FileText
-} from "lucide-react";
 import "./Topbar.scss";
+import Icon from "../icon/icon";
 
 const Topbar: React.FC = () => {
   const location = useLocation();
@@ -30,12 +23,15 @@ const Topbar: React.FC = () => {
       <div className="topbar-left">
         <div className="breadcrumb">
           <button className="breadcrumb-btn">
-            <LayoutGrid size={16} />
+            <Icon name="side_bar" height="14" width="18" />
           </button>
           <button className="breadcrumb-btn">
-            <Star size={16} />
+            <Icon name={"star"} height="18" width="18" />
           </button>
           <span className="breadcrumb-text">Dashboards</span>
+          <span className="breadcrumb-text" style={{ margin: 0 }}>
+            /
+          </span>
           <span className="breadcrumb-current">{getPageTitle()}</span>
         </div>
       </div>
@@ -62,7 +58,7 @@ const Topbar: React.FC = () => {
             <Bell size={16} />
           </button>
           <button className="icon-btn">
-            <FileText size={16} />
+            <Icon name="side_bar" height="14" width="18" />
           </button>
         </div>
       </div>

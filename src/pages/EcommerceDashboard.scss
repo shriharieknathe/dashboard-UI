@@ -85,18 +85,19 @@
       justify-content: center;
 
       &.customers {
-        background-color: #eff6ff;
+        background-color: #e3f5ff;
       }
 
       &.orders {
         background-color: #ffffff;
-        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
         border: 1px solid rgba(226, 232, 240, 0.5);
       }
 
-      &.revenue,
+      &.revenue {
+        background-color: #F7F9FB;
+      }
       &.growth {
-        background-color: #f1f5f9;
+        background-color: #e5ecf6;
       }
 
       .metric-label {
@@ -153,15 +154,16 @@
     background-color: #ffffff;
     border: 1px solid rgba(226, 232, 240, 0.5);
     border-radius: 12px;
-    padding: 16px;
+    padding: 24px;
     display: flex;
     flex-direction: column;
     height: 100%;
 
     .chart-title {
+      font-size: 18px;
       font-weight: 600;
       color: #111827;
-      margin-bottom: 16px;
+      margin-bottom: 24px;
     }
 
     .chart-header {
@@ -208,7 +210,7 @@
 
     .chart-content {
       flex: 1;
-      height: calc(100% - 60px);
+      height: calc(100% - 50px);
     }
 
     @include mobile {
@@ -218,6 +220,7 @@
 
   .projection-chart {
     background-color: #f7f9fb;
+    border: 1px solid #e5e7eb;
   }
 
   // Revenue by Location specific styles
