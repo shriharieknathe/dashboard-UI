@@ -24,7 +24,6 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({
   isMobileOpen = false,
-  onMobileClose,
 }) => {
   const location = useLocation();
   const [expandedItems, setExpandedItems] = useState<string[]>([
