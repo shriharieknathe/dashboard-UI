@@ -1,0 +1,148 @@
+@use "../../../styles/variables" as *;
+
+.search-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+
+  .search-input-icon {
+    position: absolute;
+    left: 12px;
+    color: var(--text-tertiary);
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .search-input-field {
+    width: 100%;
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+    font-size: font-size(sm);
+    transition: all 0.2s ease;
+
+    &:focus {
+      outline: none;
+      border-color: var(--accent-primary);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+      background-color: var(--bg-card);
+    }
+
+    &::placeholder {
+      color: var(--text-tertiary);
+    }
+
+    &:disabled {
+      background-color: var(--bg-secondary);
+      color: var(--text-secondary);
+      cursor: not-allowed;
+    }
+  }
+
+  // Size variants
+  &--small {
+    .search-input-icon {
+      left: 8px;
+    }
+
+    .search-input-field {
+      height: 28px;
+      padding: 0 12px 0 28px;
+      font-size: font-size(xs);
+    }
+  }
+
+  &--medium {
+    .search-input-icon {
+      left: 12px;
+    }
+
+    .search-input-field {
+      height: 36px;
+      padding: 0 16px 0 36px;
+      font-size: font-size(sm);
+    }
+  }
+
+  &--large {
+    .search-input-icon {
+      left: 16px;
+    }
+
+    .search-input-field {
+      height: 44px;
+      padding: 0 20px 0 44px;
+      font-size: font-size(base);
+    }
+  }
+
+  // Variant styles
+  &--compact {
+    .search-input-field {
+      border-radius: 8px;
+      background-color: var(--black-5, #1C1C1C0D);
+      
+      &:focus {
+        background-color: var(--bg-card);
+      }
+      
+      // Dark theme for topbar compact variant
+      [data-theme="dark"] & {
+        background-color: var(--black-5, #FFFFFF1A);
+      }
+    }
+  }
+
+  &--mobile {
+    .search-input-field {
+      border-radius: 8px;
+      font-size: font-size(base);
+      
+      &::placeholder {
+        font-size: font-size(sm);
+      }
+    }
+  }
+
+  // Default variant (for OrderList)
+  &--default {
+    .search-input-field {
+      border-radius: 8px;
+      border: 1px solid var(--border-light);
+      background-color: var(--bg-card);
+      
+      // Dark theme for OrderList
+      [data-theme="dark"] & {
+        border: 1px solid var(--black-10, #FFFFFF1A);
+        background-color: var(--white-40, #1C1C1C66);
+      }
+    }
+  }
+
+  // Responsive adjustments
+  @include tablet {
+    &--medium {
+      .search-input-field {
+        height: 32px;
+        padding: 0 12px 0 32px;
+      }
+    }
+  }
+
+  @include mobile {
+    &--small,
+    &--medium {
+      .search-input-field {
+        height: 40px;
+        padding: 0 16px 0 40px;
+        font-size: font-size(base);
+      }
+      
+      .search-input-icon {
+        left: 12px;
+      }
+    }
+  }
+}

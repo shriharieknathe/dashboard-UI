@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
-import Sidebar from './components/Layout/Sidebar';
-import MainSection from './components/Layout/MainSection';
-import RightBar from './components/Layout/RightBar';
-import OrderList from './pages/OrderList';
-import EcommerceDashboard from './pages/EcommerceDashboard';
+import Sidebar from './components/Sidebar/Sidebar';
+import MainSection from './components/MainSection/MainSection';
+import RightBar from './components/RightBar/RightBar';
+import OrderList from './components/OrderList';
+import EcommerceDashboard from './components/EcommerceDashboard';
+import { usePageTitle } from './hooks/usePageTitle';
 import './App.scss';
-import { ThemeProvider } from './contexts/ThemeContext';
 
 const App: React.FC = () => {
   const location = useLocation();
@@ -14,6 +14,22 @@ const App: React.FC = () => {
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   const [isMobileRightbarOpen, setIsMobileRightbarOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+
+  // Set page title based on current route
+  const getPageTitle = () => {
+    switch (location.pathname) {
+      case '/':
+        return 'Dashboard';
+      case '/order-list':
+        return 'Order List';
+      case '/analytics':
+        return 'Analytics';
+      default:
+        return 'Dashboard';
+    }
+  };
+
+  usePageTitle(getPageTitle());
 
   // Check if we're on mobile/tablet
   useEffect(() => {
@@ -57,8 +73,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <ThemeProvider>
-      <div className={`app ${isOrderListPage ? 'no-right-bar' : ''}`}>
+    <div className={`app ${isOrderListPage ? 'no-right-bar' : ''}`}>
         {/* Mobile Overlays */}
         {isMobile && (
           <>
@@ -105,7 +120,6 @@ const App: React.FC = () => {
           />
         )}
       </div>
-    </ThemeProvider>
   );
 };
 

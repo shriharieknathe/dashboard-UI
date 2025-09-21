@@ -1,0 +1,627 @@
+@use "../../styles/variables" as *;
+
+.ecommerce-dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+
+  .page-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0 0 4px 0;
+  }
+
+  .layer {
+    display: flex;
+    gap: 28px;
+    width: 100%;
+
+    // First Layer: 50-50 split (252px height)
+    &.layer-first {
+      height: 252px;
+
+      .layer-left {
+        width: 50%;
+      }
+      .layer-right {
+        width: 50%;
+      }
+    }
+
+    // Second Layer: 70-30 split (318px height)
+    &.layer-second {
+      height: 318px;
+
+      .layer-left {
+        width: 70%;
+      }
+      .layer-right {
+        width: 30%;
+      }
+    }
+
+    // Third Layer: 70-30 split (fixed height)
+    &.layer-third {
+      height: 400px;
+
+      .layer-left {
+        width: 70%;
+      }
+      .layer-right {
+        width: 30%;
+      }
+    }
+
+    .layer-left,
+    .layer-right {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    @include tablet {
+      flex-direction: column;
+      height: auto !important;
+
+      .layer-left,
+      .layer-right {
+        width: 100% !important;
+      }
+    }
+  }
+
+  // Metrics Grid (2x2 layout)
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 28px;
+    height: 100%;
+
+    .metric-card {
+      padding: 16px;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      &.customers {
+        background-color: #e3f5ff;
+      }
+      
+      &.orders {
+        background-color: var(--Primary-Light, #F7F9FB);
+      }
+
+      &.revenue {
+        background-color: var(--Primary-Light, #F7F9FB);
+      }
+      
+      &.growth {
+        background-color: #e5ecf6;
+      }
+
+      .metric-label {
+        font-size: 14px;
+        color: var(--text-secondary);
+        margin-bottom: 8px;
+
+        &.customer,
+        &.growth {
+          color: #1c1c1c;
+        }
+      }
+
+      .metric-content {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        .metric-value {
+          font-size: 24px;
+          font-weight: 600;
+          color: var(--text-primary);
+
+          &.customer,
+          &.growth {
+            color: #1c1c1c;
+          }
+        }
+
+        .metric-change {
+          display: flex;
+          align-items: center;
+          font-size: 12px;
+          gap: 4px;
+
+          &.positive {
+            color: #{color(green-600)};
+
+            &.customer,
+            &.growth {
+              color: #{color(green-600)};
+            }
+          }
+
+          &.negative {
+            color: #{color(red-600)};
+
+            &.customer,
+            &.growth {
+              color: #{color(red-600)};
+            }
+          }
+
+          .rotate-180 {
+            transform: rotate(180deg);
+          }
+        }
+      }
+    }
+
+    @include tablet {
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+    }
+
+    @include mobile {
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(4, 1fr);
+    }
+  }
+
+  // Chart Containers
+  .chart-container {
+    background-color: var(--Primary-Light, #ffffff0d);
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    .chart-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 24px;
+    }
+
+    .chart-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+
+      .chart-title {
+        margin-bottom: 0;
+      }
+
+      .chart-legend {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        font-size: 14px;
+
+        .legend-item {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+
+          .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+
+            &.current {
+              background-color: var(--chart-line-current);
+            }
+
+            &.previous {
+              border: 2px solid var(--text-tertiary);
+            }
+          }
+
+          span {
+            color: var(--text-secondary);
+          }
+        }
+      }
+    }
+
+    .chart-content {
+      flex: 1;
+      height: calc(100% - 50px);
+    }
+
+    @include mobile {
+      padding: 12px;
+    }
+  }
+
+  .projection-chart {
+    background-color: var(--metric-bg-default);
+  }
+
+  // Revenue by Location specific styles
+  .map-container {
+    height: 160px;
+    margin-bottom: 16px;
+    background-color: var(--bg-secondary);
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+
+    .world-map {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .locations-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    .location-item {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      .location-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .city {
+          font-weight: 400;
+          font-size: 12px;
+          line-height: 18px;
+          color: var(--text-primary);
+        }
+
+        .value {
+          font-weight: 400;
+          font-size: 12px;
+          line-height: 18px;
+          color: var(--text-primary);
+        }
+      }
+
+      .progress-bar {
+        width: 100%;
+        height: 2px;
+        background-color: var(--bg-tertiary);
+        border-radius: 1px;
+        overflow: hidden;
+
+        .progress-fill {
+          height: 100%;
+          background-color: var(--Secondary-Cyan, #A8C5DA);
+          border-radius: 1px;
+          transition: width 0.3s ease;
+        }
+      }
+    }
+  }
+
+  // Products Table
+  .table-container {
+    overflow-x: auto;
+    flex: 1;
+
+    .products-table {
+      width: 100%;
+      font-size: 14px;
+      border-collapse: collapse;
+
+      thead {
+        tr {
+          th {
+            text-align: left;
+            padding-bottom: 12px;
+            color: var(--text-secondary);
+            font-weight: 500;
+            border-bottom: 1px solid #{color(gray-100)};
+          }
+        }
+      }
+
+      tbody {
+        tr {
+          border-top: 1px solid #{color(gray-100)};
+
+          td {
+            padding: 12px 0;
+
+            &.product-name {
+              color: var(--text-primary);
+            }
+
+            &.price,
+            &.quantity {
+              color: var(--text-secondary);
+            }
+
+            &.amount {
+              color: var(--text-primary);
+              font-weight: 500;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Pie Chart styles
+  .pie-chart-container {
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+
+    .pie-chart-wrapper {
+      position: relative;
+
+      .pie-chart-center {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+
+        .percentage {
+          font-size: 18px;
+          font-weight: 600;
+          color: var(--text-primary);
+        }
+      }
+    }
+  }
+
+  .sales-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    .sales-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+
+      .sales-info {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        .sales-dot {
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+        }
+
+        .sales-name {
+          color: var(--text-secondary);
+        }
+      }
+
+      .sales-value {
+        color: var(--text-primary);
+        font-weight: 500;
+      }
+    }
+  }
+
+  // Responsive Design
+  @include tablet {
+    padding: 16px;
+    gap: 20px;
+
+    .layer {
+      gap: 20px;
+      
+      // Stack layers vertically on tablet
+      &.layer-first,
+      &.layer-second,
+      &.layer-third {
+        flex-direction: column;
+        height: auto !important;
+
+        .layer-left,
+        .layer-right {
+          width: 100% !important;
+          margin-bottom: 20px;
+
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+
+    .metrics-grid {
+      gap: 20px;
+      // Keep 2x2 grid on tablet
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+    }
+
+    // Adjust chart containers
+    .chart-container {
+      padding: 20px;
+      
+      .chart-title {
+        font-size: 16px;
+        margin-bottom: 16px;
+      }
+    }
+
+    // Map container adjustments
+    .map-container {
+      height: 140px;
+    }
+
+    // Products table responsiveness
+    .table-container {
+      .products-table {
+        font-size: 13px;
+        
+        thead th,
+        tbody td {
+          padding: 10px 8px;
+        }
+      }
+    }
+  }
+
+  @include mobile {
+    padding: 12px;
+    gap: 16px;
+
+    .layer {
+      gap: 16px;
+      
+      // Stack everything vertically on mobile
+      &.layer-first,
+      &.layer-second,
+      &.layer-third {
+        flex-direction: column;
+        height: auto !important;
+
+        .layer-left,
+        .layer-right {
+          width: 100% !important;
+          margin-bottom: 16px;
+
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+
+    .metrics-grid {
+      gap: 16px;
+      // Single column on mobile
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(4, 1fr);
+
+      .metric-card {
+        padding: 12px;
+        
+        .metric-label {
+          font-size: 12px;
+        }
+        
+        .metric-content {
+          .metric-value {
+            font-size: 20px;
+          }
+          
+          .metric-change {
+            font-size: 11px;
+          }
+        }
+      }
+    }
+
+    // Adjust chart containers for mobile
+    .chart-container {
+      padding: 16px;
+      
+      .chart-title {
+        font-size: 14px;
+        margin-bottom: 12px;
+      }
+      
+      .chart-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        
+        .chart-legend {
+          flex-wrap: wrap;
+          gap: 12px;
+          
+          .legend-item {
+            font-size: 12px;
+          }
+        }
+      }
+    }
+
+    // Map container for mobile
+    .map-container {
+      height: 120px;
+      margin-bottom: 12px;
+    }
+
+    .locations-list {
+      gap: 12px;
+      
+      .location-item {
+        gap: 6px;
+        
+        .location-info {
+          .city,
+          .value {
+            font-size: 11px;
+            line-height: 16px;
+          }
+        }
+      }
+    }
+
+    // Products table mobile optimization
+    .table-container {
+      .products-table {
+        font-size: 12px;
+        
+        thead th {
+          padding: 8px 4px;
+          font-size: 11px;
+        }
+        
+        tbody td {
+          padding: 8px 4px;
+          
+          &.product-name {
+            max-width: 120px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+        }
+      }
+    }
+
+    // Pie chart mobile adjustments
+    .pie-chart-container {
+      height: 120px;
+      margin-bottom: 8px;
+    }
+
+    .sales-legend {
+      gap: 6px;
+      
+      .sales-item {
+        font-size: 12px;
+        
+        .sales-info {
+          gap: 6px;
+          
+          .sales-dot {
+            width: 6px;
+            height: 6px;
+          }
+        }
+      }
+    }
+
+    .page-title {
+      font-size: 18px;
+    }
+  }
+}
