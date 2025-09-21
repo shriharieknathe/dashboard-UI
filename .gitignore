@@ -124,7 +124,7 @@ dist-ssr/
 
 # Gatsby files (if using Gatsby)
 .cache/
-public/
+# public/ - Don't ignore public folder for Vite projects
 
 # Storybook build outputs
 storybook-static/

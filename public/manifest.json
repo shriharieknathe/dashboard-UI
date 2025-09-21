@@ -1,0 +1,20 @@
+{
+  "name": "ByeWind Dashboard",
+  "short_name": "ByeWind",
+  "description": "Modern eCommerce Dashboard - Analytics, Orders, and Business Intelligence",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#6366F1",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
