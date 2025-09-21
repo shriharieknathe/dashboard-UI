@@ -37,21 +37,44 @@
   --shadow-md: #{shadow(md)};
   --shadow-lg: #{shadow(lg)};
   --shadow-xl: #{shadow(xl)};
+
+  // Charts (light)
+  --chart-bg: #{color(bg-card)};
+  --chart-border: #{color(border-light)};
+  --chart-grid: #{color(border-light)};
+  --chart-tick: #{color(text-tertiary)};
+  --chart-line-current: #{color(gray-800)};
+  --chart-line-previous: #{color(text-tertiary)};
+  --chart-bar-actual: #A9B8E2;
+  --chart-bar-projection: #D2D9EE;
+  --chart-pie-direct: #{color(gray-900)};
+  --chart-pie-affiliate: #a7f3d0;
+  --chart-pie-sponsored: #cbd5e1;
+  --chart-pie-email: #93c5fd;
+  
+  // Metric cards (light)
+  --metric-bg-default: var(--bg-card);
+  --metric-bg-customers: #E3F5FF;
+  --metric-bg-growth: #E5ECF6;
+  --metric-text-customers: #1C1C1C;
+  --metric-text-growth: #1C1C1C;
+  // Elevated panel background (light)
+  --Primary-Light: #F7F9FB;
 }
 
 [data-theme="dark"] {
   // Core semantic tokens (dark)
-  --bg-color: #{color(slate-900)};
+  --bg-color: #1a1a1a;
   --text-color: #{color(text-inverse)};
   --border-color: #{color(border-strong-dark)};
-  --card-bg: #{color(gray-900)};
+  --card-bg: #1f1f1f;
 
   // Extended background tokens
-  --bg-primary: #{color(slate-900)};
-  --bg-secondary: #{color(gray-900)};
-  --bg-tertiary: #{color(gray-800)};
-  --bg-card: #{color(gray-900)};
-  --bg-hover: #{color(gray-800)};
+  --bg-primary: #1a1a1a;
+  --bg-secondary: #1f1f1f;
+  --bg-tertiary: #2a2a2a;
+  --bg-card: #1f1f1f;
+  --bg-hover: #2a2a2a;
 
   // Text tokens
   --text-primary: #{color(text-inverse)};
@@ -75,6 +98,29 @@
   --shadow-md: #{shadow(md)};
   --shadow-lg: #{shadow(lg)};
   --shadow-xl: #{shadow(xl)};
+
+  // Charts (dark)
+  --chart-bg: #{color(gray-900)};
+  --chart-border: #{color(border-strong-dark)};
+  --chart-grid: #{color(border-strong-dark)};
+  --chart-tick: #{color(text-tertiary)};
+  --chart-line-current: #D2D9EE;
+  --chart-line-previous: #9FB0D9;
+  --chart-bar-actual: #A9B8E2;
+  --chart-bar-projection: #D2D9EE;
+  --chart-pie-direct: #E5E7EB;
+  --chart-pie-affiliate: #86efac;
+  --chart-pie-sponsored: #94a3b8;
+  --chart-pie-email: #60a5fa;
+  
+  // Metric cards (dark)
+  --metric-bg-default: var(--Primary-Light);
+  --metric-bg-customers: rgba(147, 197, 253, 0.26);
+  --metric-bg-growth: rgba(226, 232, 240, 0.25);
+  --metric-text-customers: var(--text-primary);
+  --metric-text-growth: var(--text-primary);
+  // Elevated panel background (dark)
+  --Primary-Light: rgba(255, 255, 255, 0.05);
 }
 
 html, body {
@@ -351,21 +397,60 @@ body {
 
 // Scrollbar Styling
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 4px;
+  height: 4px;
 }
 
 ::-webkit-scrollbar-track {
-  background: color(bg-secondary);
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: color(border-medium);
-  border-radius: radius(sm);
+  background: var(--text-tertiary);
+  border-radius: 2px;
+  opacity: 0.3;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: color(border-dark);
+  background: var(--text-secondary);
+  opacity: 0.6;
+}
+
+// Hide scrollbar for Firefox
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--text-tertiary) transparent;
+}
+
+// Custom scrollbar for specific containers
+.sidebar-nav,
+.rightbar,
+.main-content,
+.order-table-container {
+  &::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: var(--text-tertiary);
+    border-radius: 2px;
+    opacity: 0.2;
+    transition: opacity 0.2s ease;
+  }
+  
+  &:hover::-webkit-scrollbar-thumb {
+    opacity: 0.5;
+  }
+  
+  &::-webkit-scrollbar-thumb:hover {
+    background: var(--text-secondary);
+    opacity: 0.7;
+  }
 }
 
 // Animations

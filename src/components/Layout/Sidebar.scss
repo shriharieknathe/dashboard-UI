@@ -242,12 +242,89 @@
     }
   }
 
-  @include mobile {
+  // Responsive behavior
+  @include tablet {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
     transform: translateX(-100%);
     transition: transform 0.3s ease;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 
-    &.open {
+    &.mobile-open {
       transform: translateX(0);
+      width: 20%;
+    }
+  }
+
+  @include mobile {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    width: 280px;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+
+    &.mobile-open {
+      transform: translateX(0);
+    }
+
+    .sidebar-header {
+      padding: 16px 24px;
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--border-light);
+
+      .brand {
+        .brand-text {
+          font-size: 18px;
+        }
+      }
+    }
+
+    .sidebar-nav {
+      padding: 0 16px;
+
+      .favorites-recently-section {
+        .section-headers {
+          .section-title {
+            font-size: 12px;
+            padding: 4px 8px;
+          }
+        }
+      }
+
+      .nav-section {
+        .section-header {
+          padding: 4px 8px;
+
+          .section-title {
+            font-size: 12px;
+          }
+        }
+      }
+
+      .nav-link {
+        padding: 8px 16px;
+
+        .nav-link-content {
+          .nav-text {
+            font-size: 14px;
+          }
+        }
+      }
+
+      .child-link {
+        margin-left: 20px;
+        padding: 6px 12px;
+
+        .nav-text {
+          font-size: 13px;
+          padding-left: 16px;
+        }
+      }
     }
   }
 }

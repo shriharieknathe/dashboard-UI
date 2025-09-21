@@ -5,12 +5,17 @@ import './MainSection.scss';
 
 interface MainSectionProps {
   children: React.ReactNode;
+  onMobileMenuClick?: () => void;
+  onMobileRightbarClick?: () => void;
 }
 
-const MainSection: React.FC<MainSectionProps> = ({ children }) => {
+const MainSection: React.FC<MainSectionProps> = ({ children, onMobileMenuClick, onMobileRightbarClick }) => {
   return (
     <div className="main-section">
-      <Topbar />
+      <Topbar 
+        onMobileMenuClick={onMobileMenuClick} 
+        onMobileRightbarClick={onMobileRightbarClick}
+      />
       <main className="main-content">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

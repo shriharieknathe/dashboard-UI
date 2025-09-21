@@ -1,38 +1,11 @@
+import { useTheme } from "@/contexts/ThemeContext";
 import { motion } from "framer-motion";
 import { ChevronRight } from "lucide-react";
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Icon from "../../components/icon/icon";
+import byeWindIcon from "../assets/image/ByeWind.png";
 import "./Sidebar.scss";
-import { useTheme } from "@/contexts/ThemeContext";
-
-// Custom ByeWindIcon component
-const ByeWindIcon = () => (
-  <svg
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <circle cx="12" cy="12" r="12" fill="#292D32" />
-    <path
-      d="M12 13.0625C13.6929 13.0625 15.0625 11.6929 15.0625 10C15.0625 8.30711 13.6929 6.9375 12 6.9375C10.3071 6.9375 8.9375 8.30711 8.9375 10C8.9375 11.6929 10.3071 13.0625 12 13.0625Z"
-      stroke="white"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M17.4375 17.8125C17.4375 15.75 15.25 14.125 12 14.125C8.75 14.125 6.5625 15.75 6.5625 17.8125"
-      stroke="white"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
-
 interface NavItem {
   id: string;
   title: string;
@@ -44,7 +17,15 @@ interface NavItem {
   isStatic?: boolean;
 }
 
-const Sidebar: React.FC = () => {
+interface SidebarProps {
+  isMobileOpen?: boolean;
+  onMobileClose?: () => void;
+}
+
+const Sidebar: React.FC<SidebarProps> = ({
+  isMobileOpen = false,
+  onMobileClose,
+}) => {
   const location = useLocation();
   const [expandedItems, setExpandedItems] = useState<string[]>([
     "favorites",
@@ -382,11 +363,11 @@ const Sidebar: React.FC = () => {
   };
 
   return (
-    <div className="sidebar">
+    <div className={`sidebar ${isMobileOpen ? "mobile-open" : ""}`}>
       <div className="sidebar-header">
         <div className="brand">
           <div className="brand-icon">
-            <ByeWindIcon />
+            <img src={byeWindIcon} alt="ByeWind Logo" />
           </div>
           <span className="brand-text">ByeWind</span>
         </div>

@@ -7,10 +7,16 @@ import {
   Upload,
   Database,
   Trash2,
+  X,
 } from 'lucide-react';
 import './RightBar.scss';
 
-const RightBar: React.FC = () => {
+interface RightBarProps {
+  isMobileOpen?: boolean;
+  onMobileClose?: () => void;
+}
+
+const RightBar: React.FC<RightBarProps> = ({ isMobileOpen = false, onMobileClose }) => {
   const location = useLocation();
 
   // Hide RightBar only on order-list screen  
@@ -134,11 +140,24 @@ const RightBar: React.FC = () => {
 
   return (
     <motion.aside
-      className="rightbar"
+      className={`rightbar ${isMobileOpen ? 'mobile-open' : ''}`}
       initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.3 }}
     >
+      {/* Mobile Close Button */}
+      {isMobileOpen && onMobileClose && (
+        <div className="mobile-close-header">
+          <button 
+            className="mobile-close-btn"
+            onClick={onMobileClose}
+            aria-label="Close panel"
+          >
+            <X size={20} />
+          </button>
+        </div>
+      )}
+
       {/* Notifications */}
       <div className="rightbar-section">
         <h3 className="section-title">Notifications</h3>

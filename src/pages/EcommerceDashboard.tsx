@@ -1,52 +1,96 @@
-import React from 'react';
-import { TrendingUp } from 'lucide-react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell } from 'recharts';
-import './EcommerceDashboard.scss';
+import { TrendingUp } from "lucide-react";
+import React from "react";
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Cell,
+  Line,
+  LineChart,
+  Pie,
+  PieChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
+import MapImage from "../components/assets/image/Map.png";
+import "./EcommerceDashboard.scss";
 
 const projectionsData = [
-  { month: 'Jan', actual: 16, projection: 4 },
-  { month: 'Feb', actual: 20, projection: 5 },
-  { month: 'Mar', actual: 17, projection: 4 },
-  { month: 'Apr', actual: 22, projection: 6 },
-  { month: 'May', actual: 14, projection: 4 },
-  { month: 'Jun', actual: 20, projection: 5 },
+  { month: "Jan", actual: 16, projection: 4 },
+  { month: "Feb", actual: 20, projection: 5 },
+  { month: "Mar", actual: 17, projection: 4 },
+  { month: "Apr", actual: 22, projection: 6 },
+  { month: "May", actual: 14, projection: 4 },
+  { month: "Jun", actual: 20, projection: 5 },
 ];
 
 const revenueData = [
-  { month: 'Jan', current: 24, previous: 22 },
-  { month: 'Feb', current: 28, previous: 25 },
-  { month: 'Mar', current: 22, previous: 28 },
-  { month: 'Apr', current: 30, previous: 27 },
-  { month: 'May', current: 26, previous: 30 },
-  { month: 'Jun', current: 32, previous: 29 },
-  { month: 'Jul', current: 29, previous: 33 },
-  { month: 'Aug', current: 35, previous: 30 },
-  { month: 'Sep', current: 31, previous: 36 },
-  { month: 'Oct', current: 38, previous: 32 },
-  { month: 'Nov', current: 34, previous: 40 },
-  { month: 'Dec', current: 40, previous: 35 },
+  { month: "Jan", current: 24, previous: 22 },
+  { month: "Feb", current: 28, previous: 25 },
+  { month: "Mar", current: 22, previous: 28 },
+  { month: "Apr", current: 30, previous: 27 },
+  { month: "May", current: 26, previous: 30 },
+  { month: "Jun", current: 32, previous: 29 },
+  { month: "Jul", current: 29, previous: 33 },
+  { month: "Aug", current: 35, previous: 30 },
+  { month: "Sep", current: 31, previous: 36 },
+  { month: "Oct", current: 38, previous: 32 },
+  { month: "Nov", current: 34, previous: 40 },
+  { month: "Dec", current: 40, previous: 35 },
 ];
 
 const productsData = [
-  { id: 1, name: 'ASOS Ridley High Waist', price: '$79.49', quantity: 82, amount: '$6,518.18' },
-  { id: 2, name: 'Marco Lightweight Shirt', price: '$128.50', quantity: 37, amount: '$4,754.50' },
-  { id: 3, name: 'Half Sleeve Shirt', price: '$39.99', quantity: 64, amount: '$2,559.36' },
-  { id: 4, name: 'Lightweight Jacket', price: '$20.00', quantity: 184, amount: '$3,680.00' },
-  { id: 5, name: 'Marco Shoes', price: '$79.49', quantity: 64, amount: '$1,965.81' },
+  {
+    id: 1,
+    name: "ASOS Ridley High Waist",
+    price: "$79.49",
+    quantity: 82,
+    amount: "$6,518.18",
+  },
+  {
+    id: 2,
+    name: "Marco Lightweight Shirt",
+    price: "$128.50",
+    quantity: 37,
+    amount: "$4,754.50",
+  },
+  {
+    id: 3,
+    name: "Half Sleeve Shirt",
+    price: "$39.99",
+    quantity: 64,
+    amount: "$2,559.36",
+  },
+  {
+    id: 4,
+    name: "Lightweight Jacket",
+    price: "$20.00",
+    quantity: 184,
+    amount: "$3,680.00",
+  },
+  {
+    id: 5,
+    name: "Marco Shoes",
+    price: "$79.49",
+    quantity: 64,
+    amount: "$1,965.81",
+  },
 ];
 
 const salesData = [
-  { name: 'Direct', value: 300.56, color: '#111827' },   // black
-  { name: 'Affiliate', value: 135.18, color: '#a7f3d0' }, // light green
-  { name: 'Sponsored', value: 154.02, color: '#cbd5e1' }, // light gray-blue
-  { name: 'E-mail', value: 48.96, color: '#93c5fd' },     // soft blue
+  { name: "Direct", value: 300.56, color: "var(--chart-pie-direct)" },
+  { name: "Affiliate", value: 135.18, color: "var(--chart-pie-affiliate)" },
+  { name: "Sponsored", value: 154.02, color: "var(--chart-pie-sponsored)" },
+  { name: "E-mail", value: 48.96, color: "var(--chart-pie-email)" },
 ];
 
 const locations = [
-  { city: 'New York', value: '72K' },
-  { city: 'San Francisco', value: '39K' },
-  { city: 'Sydney', value: '25K' },
-  { city: 'Singapore', value: '61K' },
+  { city: "New York", value: "72K", percentage: 72 },
+  { city: "San Francisco", value: "39K", percentage: 39 },
+  { city: "Sydney", value: "25K", percentage: 25 },
+  { city: "Singapore", value: "61K", percentage: 61 },
 ];
 
 const EcommerceDashboard: React.FC = () => {
@@ -61,10 +105,10 @@ const EcommerceDashboard: React.FC = () => {
         <div className="layer-left">
           <div className="metrics-grid">
             <div className="metric-card customers">
-              <div className="metric-label">Customers</div>
+              <div className="metric-label customer">Customers</div>
               <div className="metric-content">
-                <div className="metric-value">3,781</div>
-                <div className="metric-change positive">
+                <div className="metric-value customer">3,781</div>
+                <div className="metric-change positive customer">
                   <TrendingUp size={12} />
                   +11.01%
                 </div>
@@ -94,10 +138,10 @@ const EcommerceDashboard: React.FC = () => {
             </div>
 
             <div className="metric-card growth">
-              <div className="metric-label">Growth</div>
+              <div className="metric-label growth">Growth</div>
               <div className="metric-content">
-                <div className="metric-value">30.1%</div>
-                <div className="metric-change positive">
+                <div className="metric-value growth">30.1%</div>
+                <div className="metric-change positive growth">
                   <TrendingUp size={12} />
                   +6.08%
                 </div>
@@ -112,24 +156,41 @@ const EcommerceDashboard: React.FC = () => {
             <div className="chart-title">Projections vs Actuals</div>
             <div className="chart-content">
               <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={projectionsData} margin={{ top: 10, right: 0, left: -25, bottom: 0 }}>
-                  <CartesianGrid strokeDasharray="3 0" stroke="var(--border-light)" vertical={false} />
-                  <XAxis 
-                    dataKey="month" 
-                    axisLine={false}
-                    tickLine={false}
-                    tick={{ fontSize: 14, fill: 'var(--text-tertiary)' }}
+                <BarChart
+                  data={projectionsData}
+                  margin={{ top: 10, right: 0, left: -25, bottom: 0 }}
+                >
+                  <CartesianGrid
+                    strokeDasharray="3 0"
+                    stroke="var(--chart-grid)"
+                    vertical={false}
                   />
-                  <YAxis 
+                  <XAxis
+                    dataKey="month"
                     axisLine={false}
                     tickLine={false}
-                    tick={{ fontSize: 14, fill: 'var(--text-tertiary)' }}
+                    tick={{ fontSize: 14, fill: "var(--chart-tick)" }}
+                  />
+                  <YAxis
+                    axisLine={false}
+                    tickLine={false}
+                    tick={{ fontSize: 14, fill: "var(--chart-tick)" }}
                     domain={[0, 30]}
                     ticks={[0, 10, 20, 30]}
                     tickFormatter={(value) => `${value}M`}
                   />
-                  <Bar dataKey="actual" stackId="a" fill="#A9B8E2" radius={[5, 5, 0, 0]} barSize={25} />
-                  <Bar dataKey="projection" stackId="a" fill="#D2D9EE" radius={[5, 5, 0, 0]} />
+                  <Bar
+                    dataKey="actual"
+                    fill="var(--chart-bar-actual)"
+                    radius={[5, 5, 0, 0]}
+                    barSize={20}
+                  />
+                  <Bar
+                    dataKey="projection"
+                    fill="var(--chart-bar-projection)"
+                    radius={[5, 5, 0, 0]}
+                    barSize={20}
+                  />
                 </BarChart>
               </ResponsiveContainer>
             </div>
@@ -158,12 +219,45 @@ const EcommerceDashboard: React.FC = () => {
             <div className="chart-content">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={revenueData}>
-                  <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                  <XAxis dataKey="month" axisLine={false} tickLine={false} />
-                  <YAxis axisLine={false} tickLine={false} tickFormatter={(v) => `${v}M`} />
-                  <Tooltip />
-                  <Line type="monotone" dataKey="current" stroke="#1f2937" strokeWidth={2} dot={false} />
-                  <Line type="monotone" dataKey="previous" stroke="#94a3b8" strokeWidth={2} strokeDasharray="5 5" dot={false} />
+                  <CartesianGrid
+                    strokeDasharray="3 3"
+                    vertical={false}
+                    stroke="var(--chart-grid)"
+                  />
+                  <XAxis
+                    dataKey="month"
+                    axisLine={false}
+                    tickLine={false}
+                    tick={{ fill: "var(--chart-tick)" }}
+                  />
+                  <YAxis
+                    axisLine={false}
+                    tickLine={false}
+                    tick={{ fill: "var(--chart-tick)" }}
+                    tickFormatter={(v) => `${v}M`}
+                  />
+                  <Tooltip
+                    contentStyle={{
+                      backgroundColor: "var(--bg-card)",
+                      border: "1px solid var(--border-light)",
+                      color: "var(--text-primary)",
+                    }}
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey="current"
+                    stroke="var(--chart-line-current)"
+                    strokeWidth={2}
+                    dot={false}
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey="previous"
+                    stroke="var(--chart-line-previous)"
+                    strokeWidth={2}
+                    strokeDasharray="5 5"
+                    dot={false}
+                  />
                 </LineChart>
               </ResponsiveContainer>
             </div>
@@ -173,31 +267,28 @@ const EcommerceDashboard: React.FC = () => {
         {/* Revenue by Location (30% width) */}
         <div className="layer-right">
           <div className="chart-container">
-            <div className="chart-title">Revenue by Location</div>
-            
-            {/* World Map SVG */}
-            <div className="map-container">
-              <svg viewBox="0 0 400 200" className="world-map">
-                <path d="M 80 60 L 120 55 L 140 70 L 130 90 L 90 85 Z" fill="#e2e8f0" stroke="#cbd5e1" strokeWidth="1"/>
-                <path d="M 160 80 L 200 75 L 220 90 L 210 110 L 170 105 Z" fill="#e2e8f0" stroke="#cbd5e1" strokeWidth="1"/>
-                <path d="M 240 70 L 280 65 L 300 80 L 290 100 L 250 95 Z" fill="#e2e8f0" stroke="#cbd5e1" strokeWidth="1"/>
-                <path d="M 60 120 L 100 115 L 120 130 L 110 150 L 70 145 Z" fill="#e2e8f0" stroke="#cbd5e1" strokeWidth="1"/>
-                <path d="M 140 110 L 180 105 L 200 120 L 190 140 L 150 135 Z" fill="#e2e8f0" stroke="#cbd5e1" strokeWidth="1"/>
-                <path d="M 220 100 L 260 95 L 280 110 L 270 130 L 230 125 Z" fill="#e2e8f0" stroke="#cbd5e1" strokeWidth="1"/>
-                <path d="M 300 90 L 340 85 L 360 100 L 350 120 L 310 115 Z" fill="#e2e8f0" stroke="#cbd5e1" strokeWidth="1"/>
-                
-                <circle cx="100" cy="70" r="3" fill="#3b82f6" />
-                <circle cx="180" cy="90" r="3" fill="#3b82f6" />
-                <circle cx="260" cy="80" r="3" fill="#3b82f6" />
-                <circle cx="320" cy="100" r="3" fill="#3b82f6" />
-              </svg>
+            <div className="chart-title" style={{ marginBottom: "8px" }}>
+              Revenue by Location
             </div>
-            
+
+            {/* World Map */}
+            <div className="map-container">
+              <img src={MapImage} alt="World Map" className="world-map" />
+            </div>
+
             <div className="locations-list">
               {locations.map((location, i) => (
                 <div key={i} className="location-item">
-                  <span className="city">{location.city}</span>
-                  <span className="value">{location.value}</span>
+                  <div className="location-info">
+                    <span className="city">{location.city}</span>
+                    <span className="value">{location.value}</span>
+                  </div>
+                  <div className="progress-bar">
+                    <div
+                      className="progress-fill"
+                      style={{ width: `${location.percentage}%` }}
+                    ></div>
+                  </div>
                 </div>
               ))}
             </div>
@@ -266,7 +357,10 @@ const EcommerceDashboard: React.FC = () => {
               {salesData.map((item, i) => (
                 <div key={i} className="sales-item">
                   <div className="sales-info">
-                    <div className="sales-dot" style={{ backgroundColor: item.color }}></div>
+                    <div
+                      className="sales-dot"
+                      style={{ backgroundColor: item.color }}
+                    ></div>
                     <span className="sales-name">{item.name}</span>
                   </div>
                   <span className="sales-value">${item.value}</span>

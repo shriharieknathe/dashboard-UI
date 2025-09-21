@@ -8,7 +8,7 @@
   .page-title {
     font-size: 20px;
     font-weight: 600;
-    color: var(--text-secondary);
+    color: var(--text-primary);
     margin: 0 0 4px 0;
   }
 
@@ -41,8 +41,10 @@
       }
     }
 
-    // Third Layer: 70-30 split (auto height)
+    // Third Layer: 70-30 split (fixed height)
     &.layer-third {
+      height: 400px;
+
       .layer-left {
         width: 70%;
       }
@@ -87,23 +89,28 @@
       &.customers {
         background-color: #e3f5ff;
       }
-
+      
       &.orders {
-        background-color: #ffffff;
-        border: 1px solid rgba(226, 232, 240, 0.5);
+        background-color: var(--Primary-Light, #F7F9FB);
       }
 
       &.revenue {
-        background-color: #F7F9FB;
+        background-color: var(--Primary-Light, #F7F9FB);
       }
+      
       &.growth {
         background-color: #e5ecf6;
       }
 
       .metric-label {
         font-size: 14px;
-        color: #64748b;
+        color: var(--text-secondary);
         margin-bottom: 8px;
+
+        &.customer,
+        &.growth {
+          color: #1c1c1c;
+        }
       }
 
       .metric-content {
@@ -114,7 +121,12 @@
         .metric-value {
           font-size: 24px;
           font-weight: 600;
-          color: #111827;
+          color: var(--text-primary);
+
+          &.customer,
+          &.growth {
+            color: #1c1c1c;
+          }
         }
 
         .metric-change {
@@ -124,11 +136,21 @@
           gap: 4px;
 
           &.positive {
-            color: #059669;
+            color: #{color(green-600)};
+
+            &.customer,
+            &.growth {
+              color: #{color(green-600)};
+            }
           }
 
           &.negative {
-            color: #dc2626;
+            color: #{color(red-600)};
+
+            &.customer,
+            &.growth {
+              color: #{color(red-600)};
+            }
           }
 
           .rotate-180 {
@@ -151,8 +173,7 @@
 
   // Chart Containers
   .chart-container {
-    background-color: #ffffff;
-    border: 1px solid rgba(226, 232, 240, 0.5);
+    background-color: var(--Primary-Light, #ffffff0d);
     border-radius: 12px;
     padding: 24px;
     display: flex;
@@ -162,7 +183,7 @@
     .chart-title {
       font-size: 18px;
       font-weight: 600;
-      color: #111827;
+      color: var(--text-primary);
       margin-bottom: 24px;
     }
 
@@ -193,16 +214,16 @@
             border-radius: 50%;
 
             &.current {
-              background-color: #1f2937;
+              background-color: var(--chart-line-current);
             }
 
             &.previous {
-              border: 2px solid #9ca3af;
+              border: 2px solid var(--text-tertiary);
             }
           }
 
           span {
-            color: #64748b;
+            color: var(--text-secondary);
           }
         }
       }
@@ -219,15 +240,14 @@
   }
 
   .projection-chart {
-    background-color: #f7f9fb;
-    border: 1px solid #e5e7eb;
+    background-color: var(--metric-bg-default);
   }
 
   // Revenue by Location specific styles
   .map-container {
     height: 160px;
     margin-bottom: 16px;
-    background-color: #f8fafc;
+    background-color: var(--bg-secondary);
     border-radius: 8px;
     overflow: hidden;
     position: relative;
@@ -241,20 +261,46 @@
   .locations-list {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 8px;
 
     .location-item {
       display: flex;
-      justify-content: space-between;
-      font-size: 14px;
+      flex-direction: column;
+      gap: 8px;
 
-      .city {
-        color: #64748b;
+      .location-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .city {
+          font-weight: 400;
+          font-size: 12px;
+          line-height: 18px;
+          color: var(--text-primary);
+        }
+
+        .value {
+          font-weight: 400;
+          font-size: 12px;
+          line-height: 18px;
+          color: var(--text-primary);
+        }
       }
 
-      .value {
-        color: #111827;
-        font-weight: 500;
+      .progress-bar {
+        width: 100%;
+        height: 2px;
+        background-color: var(--bg-tertiary);
+        border-radius: 1px;
+        overflow: hidden;
+
+        .progress-fill {
+          height: 100%;
+          background-color: var(--Secondary-Cyan, #A8C5DA);
+          border-radius: 1px;
+          transition: width 0.3s ease;
+        }
       }
     }
   }
@@ -274,31 +320,31 @@
           th {
             text-align: left;
             padding-bottom: 12px;
-            color: #64748b;
+            color: var(--text-secondary);
             font-weight: 500;
-            border-bottom: 1px solid #f1f5f9;
+            border-bottom: 1px solid #{color(gray-100)};
           }
         }
       }
 
       tbody {
         tr {
-          border-top: 1px solid #f1f5f9;
+          border-top: 1px solid #{color(gray-100)};
 
           td {
             padding: 12px 0;
 
             &.product-name {
-              color: #111827;
+              color: var(--text-primary);
             }
 
             &.price,
             &.quantity {
-              color: #64748b;
+              color: var(--text-secondary);
             }
 
             &.amount {
-              color: #111827;
+              color: var(--text-primary);
               font-weight: 500;
             }
           }
@@ -309,11 +355,11 @@
 
   // Pie Chart styles
   .pie-chart-container {
-    height: 160px;
+    height: 140px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
 
     .pie-chart-wrapper {
       position: relative;
@@ -328,7 +374,7 @@
         .percentage {
           font-size: 18px;
           font-weight: 600;
-          color: #111827;
+          color: var(--text-primary);
         }
       }
     }
@@ -357,12 +403,12 @@
         }
 
         .sales-name {
-          color: #64748b;
+          color: var(--text-secondary);
         }
       }
 
       .sales-value {
-        color: #111827;
+        color: var(--text-primary);
         font-weight: 500;
       }
     }
@@ -375,10 +421,58 @@
 
     .layer {
       gap: 20px;
+      
+      // Stack layers vertically on tablet
+      &.layer-first,
+      &.layer-second,
+      &.layer-third {
+        flex-direction: column;
+        height: auto !important;
+
+        .layer-left,
+        .layer-right {
+          width: 100% !important;
+          margin-bottom: 20px;
+
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
+      }
     }
 
     .metrics-grid {
       gap: 20px;
+      // Keep 2x2 grid on tablet
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+    }
+
+    // Adjust chart containers
+    .chart-container {
+      padding: 20px;
+      
+      .chart-title {
+        font-size: 16px;
+        margin-bottom: 16px;
+      }
+    }
+
+    // Map container adjustments
+    .map-container {
+      height: 140px;
+    }
+
+    // Products table responsiveness
+    .table-container {
+      .products-table {
+        font-size: 13px;
+        
+        thead th,
+        tbody td {
+          padding: 10px 8px;
+        }
+      }
     }
   }
 
@@ -388,10 +482,142 @@
 
     .layer {
       gap: 16px;
+      
+      // Stack everything vertically on mobile
+      &.layer-first,
+      &.layer-second,
+      &.layer-third {
+        flex-direction: column;
+        height: auto !important;
+
+        .layer-left,
+        .layer-right {
+          width: 100% !important;
+          margin-bottom: 16px;
+
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
+      }
     }
 
     .metrics-grid {
       gap: 16px;
+      // Single column on mobile
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(4, 1fr);
+
+      .metric-card {
+        padding: 12px;
+        
+        .metric-label {
+          font-size: 12px;
+        }
+        
+        .metric-content {
+          .metric-value {
+            font-size: 20px;
+          }
+          
+          .metric-change {
+            font-size: 11px;
+          }
+        }
+      }
+    }
+
+    // Adjust chart containers for mobile
+    .chart-container {
+      padding: 16px;
+      
+      .chart-title {
+        font-size: 14px;
+        margin-bottom: 12px;
+      }
+      
+      .chart-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        
+        .chart-legend {
+          flex-wrap: wrap;
+          gap: 12px;
+          
+          .legend-item {
+            font-size: 12px;
+          }
+        }
+      }
+    }
+
+    // Map container for mobile
+    .map-container {
+      height: 120px;
+      margin-bottom: 12px;
+    }
+
+    .locations-list {
+      gap: 12px;
+      
+      .location-item {
+        gap: 6px;
+        
+        .location-info {
+          .city,
+          .value {
+            font-size: 11px;
+            line-height: 16px;
+          }
+        }
+      }
+    }
+
+    // Products table mobile optimization
+    .table-container {
+      .products-table {
+        font-size: 12px;
+        
+        thead th {
+          padding: 8px 4px;
+          font-size: 11px;
+        }
+        
+        tbody td {
+          padding: 8px 4px;
+          
+          &.product-name {
+            max-width: 120px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+        }
+      }
+    }
+
+    // Pie chart mobile adjustments
+    .pie-chart-container {
+      height: 120px;
+      margin-bottom: 8px;
+    }
+
+    .sales-legend {
+      gap: 6px;
+      
+      .sales-item {
+        font-size: 12px;
+        
+        .sales-info {
+          gap: 6px;
+          
+          .sales-dot {
+            width: 6px;
+            height: 6px;
+          }
+        }
+      }
     }
 
     .page-title {

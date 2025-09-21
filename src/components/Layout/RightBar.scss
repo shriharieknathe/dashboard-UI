@@ -7,7 +7,58 @@
   border-left: 1px solid var(--border-light);
   padding: space(6) space(4);
   overflow-y: auto;
+  overflow-x: hidden;
   z-index: 99;
+  
+  // Ensure scrolling works on mobile/tablet
+  @include tablet {
+    padding: 16px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch; // Smooth scrolling on iOS
+  }
+  
+  @include mobile {
+    padding: 12px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch; // Smooth scrolling on iOS
+  }
+
+  .mobile-close-header {
+    display: none;
+    padding: 16px 16px 8px 16px;
+    position: sticky;
+    top: 0;
+    background-color: var(--bg-card);
+    z-index: 10;
+    margin: -16px -16px 16px -16px; // Negative margins to extend to edges
+    
+    @include tablet {
+      display: block;
+    }
+    
+    @include mobile {
+      margin: -12px -12px 12px -12px; // Adjust for mobile padding
+    }
+
+    .mobile-close-btn {
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: auto;
+
+      &:hover {
+        background-color: var(--bg-hover);
+        color: var(--text-primary);
+      }
+    }
+  }
 
   .rightbar-section {
     margin-bottom: space(8);
@@ -158,7 +209,7 @@
     }
   }
 
-  @include tablet {
-    display: none;
-  }
+  // Responsive behavior handled by App.scss
+  // Mobile/tablet: position fixed with transform
+  // Desktop: normal position
 }

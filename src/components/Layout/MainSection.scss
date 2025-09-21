@@ -20,12 +20,20 @@
   }
 
   @include tablet {
+    width: 100% !important;
     margin-left: 0;
+
+    .main-content {
+      padding: 20px;
+    }
   }
 
   @include mobile {
+    width: 100% !important;
+    margin-left: 0;
+
     .main-content {
-      padding: space(4);
+      padding: 16px;
     }
   }
 }

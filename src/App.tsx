@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Sidebar from './components/Layout/Sidebar';
 import MainSection from './components/Layout/MainSection';
@@ -11,12 +11,77 @@ import { ThemeProvider } from './contexts/ThemeContext';
 const App: React.FC = () => {
   const location = useLocation();
   const isOrderListPage = location.pathname === '/order-list';
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
+  const [isMobileRightbarOpen, setIsMobileRightbarOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Check if we're on mobile/tablet
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 1024);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Close mobile sidebar and rightbar when route changes
+  useEffect(() => {
+    setIsMobileSidebarOpen(false);
+    setIsMobileRightbarOpen(false);
+  }, [location.pathname]);
+
+  const toggleMobileSidebar = () => {
+    setIsMobileSidebarOpen(!isMobileSidebarOpen);
+    // Close rightbar when opening sidebar
+    if (!isMobileSidebarOpen) {
+      setIsMobileRightbarOpen(false);
+    }
+  };
+
+  const closeMobileSidebar = () => {
+    setIsMobileSidebarOpen(false);
+  };
+
+  const toggleMobileRightbar = () => {
+    setIsMobileRightbarOpen(!isMobileRightbarOpen);
+    // Close sidebar when opening rightbar
+    if (!isMobileRightbarOpen) {
+      setIsMobileSidebarOpen(false);
+    }
+  };
+
+  const closeMobileRightbar = () => {
+    setIsMobileRightbarOpen(false);
+  };
 
   return (
     <ThemeProvider>
       <div className={`app ${isOrderListPage ? 'no-right-bar' : ''}`}>
-        <Sidebar />
-        <MainSection>
+        {/* Mobile Overlays */}
+        {isMobile && (
+          <>
+            <div 
+              className={`sidebar-overlay ${isMobileSidebarOpen ? 'active' : ''}`}
+              onClick={closeMobileSidebar}
+            />
+            <div 
+              className={`rightbar-overlay ${isMobileRightbarOpen ? 'active' : ''}`}
+              onClick={closeMobileRightbar}
+            />
+          </>
+        )}
+        
+        <Sidebar 
+          isMobileOpen={isMobileSidebarOpen}
+          onMobileClose={closeMobileSidebar}
+        />
+        
+        <MainSection 
+          onMobileMenuClick={toggleMobileSidebar}
+          onMobileRightbarClick={toggleMobileRightbar}
+        >
           <Routes>
             <Route path="/" element={<EcommerceDashboard />} />
             <Route path="/dashboard" element={<EcommerceDashboard />} />
@@ -32,7 +97,13 @@ const App: React.FC = () => {
             <Route path="/social" element={<EcommerceDashboard />} />
           </Routes>
         </MainSection>
-        <RightBar />
+        
+        {!isOrderListPage && (
+          <RightBar 
+            isMobileOpen={isMobileRightbarOpen}
+            onMobileClose={closeMobileRightbar}
+          />
+        )}
       </div>
     </ThemeProvider>
   );

@@ -1,14 +1,27 @@
-import { Bell, Clock, Search } from "lucide-react";
+import { Menu, Search } from "lucide-react";
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useTheme } from "../../contexts/ThemeContext";
 import Icon from "../icon/icon";
 import "./Topbar.scss";
 
-const Topbar: React.FC = () => {
+interface TopbarProps {
+  onMobileMenuClick?: () => void;
+  onMobileRightbarClick?: () => void;
+}
+
+const Topbar: React.FC<TopbarProps> = ({
+  onMobileMenuClick,
+  onMobileRightbarClick,
+}) => {
   const location = useLocation();
   const [searchQuery, setSearchQuery] = useState("");
   const { theme, toggleTheme } = useTheme();
+
+  // Check if we should show rightbar toggle (hide on order list pages)
+  const shouldShowRightbarToggle =
+    !location.pathname.includes("order") &&
+    !location.pathname.includes("projects");
 
   // Get page title based on route
   const getPageTitle = () => {
@@ -23,6 +36,15 @@ const Topbar: React.FC = () => {
   return (
     <header className="topbar">
       <div className="topbar-left">
+        {/* Mobile Menu Button */}
+        <button
+          className="mobile-menu-btn"
+          onClick={onMobileMenuClick}
+          aria-label="Toggle mobile menu"
+        >
+          <Menu size={20} />
+        </button>
+
         <div className="breadcrumb">
           <button className="breadcrumb-btn" aria-label="Menu">
             <Icon
@@ -61,21 +83,35 @@ const Topbar: React.FC = () => {
           >
             <Icon
               name={`${theme === "light" ? "torch" : "dark_torch"}`}
-              height="20px"
-              width="20px"
+              height="20"
+              width="20"
             />
           </button>
           <button className="icon-btn" aria-label="Clock">
-            <Clock size={16} />
+            <Icon
+              name={`${theme === "light" ? "clock" : "dark_clock"}`}
+              height="20"
+              width="20"
+            />
           </button>
           <button className="icon-btn" aria-label="Notifications">
-            <Bell size={16} />
+            <Icon
+              name={`${theme === "light" ? "bell" : "dark_bell"}`}
+              height="16"
+              width="17"
+            />
           </button>
-          <button className="icon-btn" aria-label="Docs">
+          <button
+            className="icon-btn"
+            aria-label="Docs"
+            onClick={
+              shouldShowRightbarToggle ? onMobileRightbarClick : undefined
+            }
+          >
             <Icon
               name={`${theme === "light" ? "side_bar" : "dark_side_bar"}`}
-              height="14px"
-              width="18px"
+              height="18"
+              width="16"
             />
           </button>
         </div>

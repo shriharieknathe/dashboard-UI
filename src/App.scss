@@ -5,15 +5,139 @@
   height: 100vh;
   background-color: color(bg-secondary);
   overflow: hidden;
+  position: relative;
 
   .main-section {
     flex-grow: 1;
     transition: width 0.3s ease;
+    min-width: 0; // Prevent flex item from overflowing
   }
   
   &.no-right-bar {
     .main-section {
       width: 100%;
+    }
+  }
+
+  // Tablet responsive behavior
+  @include tablet {
+    .sidebar {
+      position: fixed !important;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      z-index: 1000;
+      transform: translateX(-100%) !important;
+      transition: transform 0.3s ease;
+      
+      &.mobile-open {
+        transform: translateX(0) !important;
+      }
+    }
+
+    .main-section {
+      width: 100% !important;
+      margin-left: 0;
+    }
+
+    // RightBar behavior on tablet
+    .rightbar {
+      position: fixed !important;
+      top: 0;
+      right: 0;
+      height: 100vh;
+      z-index: 1100;
+      width: 320px;
+      transform: translateX(100%) !important; // Force hidden by default
+      transition: transform 0.3s ease;
+      box-shadow: -4px 0 6px -1px rgba(0, 0, 0, 0.1);
+      display: block !important;
+      overflow-y: auto !important; // Ensure scrolling works
+      overflow-x: hidden !important;
+      
+      &.mobile-open {
+        transform: translateX(0) !important; // Force visible when open
+      }
+    }
+
+    // Overlays for mobile sidebar and rightbar
+    .sidebar-overlay,
+    .rightbar-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+
+      &.active {
+        opacity: 0.1;
+        visibility: visible;
+      }
+    }
+
+    .sidebar-overlay {
+      background-color: rgba(0, 0, 0, 0.5); // Darker for sidebar
+    }
+
+    .rightbar-overlay {
+      background-color: rgba(0, 0, 0, 0.1); // Much lighter for rightbar
+      z-index: 1099; // Lower than rightbar (1100) so it doesn't block scrolling
+      
+      &.active {
+        opacity: 0.1;
+        visibility: visible;
+        right: 320px; // Don't cover the rightbar area when active
+      }
+    }
+  }
+
+  // Mobile responsive behavior
+  @include mobile {
+    flex-direction: column;
+
+    .sidebar {
+      position: fixed !important;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      z-index: 1000;
+      transform: translateX(-100%) !important;
+      transition: transform 0.3s ease;
+      width: 280px; // Fixed width for mobile
+      
+      &.mobile-open {
+        transform: translateX(0) !important;
+      }
+    }
+
+    .main-section {
+      width: 100% !important;
+      margin-left: 0;
+      height: 100vh;
+    }
+
+    // RightBar behavior on mobile
+    .rightbar {
+      position: fixed !important;
+      top: 0;
+      right: 0;
+      height: 100vh;
+      z-index: 1100;
+      width: 320px;
+      transform: translateX(100%) !important; // Force hidden by default
+      transition: transform 0.3s ease;
+      box-shadow: -4px 0 6px -1px rgba(0, 0, 0, 0.1);
+      display: block !important;
+      overflow-y: auto !important; // Ensure scrolling works
+      overflow-x: hidden !important;
+      
+      &.mobile-open {
+        transform: translateX(0) !important; // Force visible when open
+      }
     }
   }
 }

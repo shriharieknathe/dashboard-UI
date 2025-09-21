@@ -1,43 +1,19 @@
-import React, { useMemo, useState } from "react";
+import Icon from "@/components/icon/icon";
+import { useTheme } from "@/contexts/ThemeContext";
 import { motion } from "framer-motion";
 import {
-  Search,
-  ChevronLeft,
-  ChevronRight,
   ArrowUpDown,
   Calendar,
+  ChevronLeft,
+  ChevronRight,
+  Edit,
+  MoreHorizontal,
+  Plus,
+  Search,
+  Trash2,
 } from "lucide-react";
+import React, { useMemo, useState } from "react";
 import "./OrderList.scss";
-
-const PlusIcon = () => (
-  <svg
-    width="14"
-    height="14"
-    viewBox="0 0 14 14"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      d="M7.625 1.375C7.625 1.02982 7.34518 0.75 7 0.75C6.65482 0.75 6.375 1.02982 6.375 1.375V6.375H1.375C1.02982 6.375 0.75 6.65482 0.75 7C0.75 7.34518 1.02982 7.625 1.375 7.625H6.375V12.625C6.375 12.9702 6.65482 13.25 7 13.25C7.34518 13.25 7.625 12.9702 7.625 12.625V7.625H12.625C12.9702 7.625 13.25 7.34518 13.25 7C13.25 6.65482 12.9702 6.375 12.625 6.375H7.625V1.375Z"
-      fill="#1C1C1C"
-    />
-  </svg>
-);
-
-const FilterIcon = () => (
-  <svg
-    width="18"
-    height="10"
-    viewBox="0 0 18 10"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      d="M14.625 5C14.625 5.16576 14.5592 5.32473 14.4419 5.44194C14.3247 5.55915 14.1658 5.625 14 5.625H4C3.83424 5.625 3.67527 5.55915 3.55806 5.44194C3.44085 5.32473 3.375 5.16576 3.375 5C3.375 4.83424 3.44085 4.67527 3.55806 4.55806C3.67527 4.44085 3.83424 4.375 4 4.375H14C14.1658 4.375 14.3247 4.44085 14.4419 4.55806C14.5592 4.67527 14.625 4.83424 14.625 5ZM17.125 0.625H0.875C0.70924 0.625 0.550268 0.690848 0.433058 0.808058C0.315848 0.925269 0.25 1.08424 0.25 1.25C0.25 1.41576 0.315848 1.57473 0.433058 1.69194C0.550268 1.80915 0.70924 1.875 0.875 1.875H17.125C17.2908 1.875 17.4497 1.80915 17.5669 1.69194C17.6842 1.57473 17.75 1.41576 17.75 1.25C17.75 1.08424 17.6842 0.925269 17.5669 0.808058C17.4497 0.690848 17.2908 0.625 17.125 0.625ZM10.875 8.125H7.125C6.95924 8.125 6.80027 8.19085 6.68306 8.30806C6.56585 8.42527 6.5 8.58424 6.5 8.75C6.5 8.91576 6.56585 9.07473 6.68306 9.19194C6.80027 9.30915 6.95924 9.375 7.125 9.375H10.875C11.0408 9.375 11.1997 9.30915 11.3169 9.19194C11.4342 9.07473 11.5 8.91576 11.5 8.75C11.5 8.58424 11.4342 8.42527 11.3169 8.30806C11.1997 8.19085 11.0408 8.125 10.875 8.125Z"
-      fill="#1C1C1C"
-    />
-  </svg>
-);
 
 interface Order {
   id: string;
@@ -52,7 +28,7 @@ interface Order {
   status: "in_progress" | "complete" | "pending" | "approved" | "rejected";
 }
 
-const PAGE_SIZE = 5;
+const PAGE_SIZE = 10;
 
 const statusOrderAsc: Record<Order["status"], number> = {
   approved: 1,
@@ -62,13 +38,26 @@ const statusOrderAsc: Record<Order["status"], number> = {
   rejected: 5,
 };
 
-const OrderList: React.FC = () => {
+  const OrderList: React.FC = () => {
+  const { theme } = useTheme();
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [sortMode, setSortMode] = useState<"none" | "statusAsc" | "statusDesc">(
     "none"
   );
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Check if we're on mobile/tablet
+  React.useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 1024); // Include tablet breakpoint
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const orders: Order[] = [
     {
@@ -280,13 +269,80 @@ const OrderList: React.FC = () => {
     return texts[status];
   };
 
+  // Mobile card rendering function
+  const renderMobileCard = (order: Order, index: number) => (
+    <motion.div
+      key={order.id}
+      className="mobile-order-card"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: index * 0.05 }}
+    >
+      <div className="card-header">
+        <div className="order-info">
+          <div className="order-id">{order.orderNumber}</div>
+          <div className="order-date">{order.date}</div>
+        </div>
+        <div className="order-checkbox">
+          <input
+            type="checkbox"
+            checked={selectedIds.has(order.id)}
+            onChange={(e) => toggleSelectRow(order.id, e.target.checked)}
+          />
+        </div>
+      </div>
+
+      <div className="card-content">
+        <div className="customer-section">
+          <img
+            src={order.user.avatar}
+            alt={order.user.name}
+            className="customer-avatar"
+          />
+          <div className="customer-details">
+            <div className="customer-name">{order.user.name}</div>
+            <div className="customer-email">{order.user.name.toLowerCase().replace(' ', '.')}@example.com</div>
+          </div>
+        </div>
+
+        <div className="order-details">
+          <div className="detail-item">
+            <div className="detail-label">Project</div>
+            <div className="detail-value">{order.project}</div>
+          </div>
+          <div className="detail-item">
+            <div className="detail-label">Address</div>
+            <div className="detail-value">{order.address}</div>
+          </div>
+        </div>
+
+        <div className="card-footer">
+          <div className={`status-badge status-${order.status}`}>
+            <span className="status-text">{getStatusText(order.status)}</span>
+          </div>
+          <div className="order-actions">
+            <button className="action-icon" aria-label="Edit">
+              <Edit size={14} />
+            </button>
+            <button className="action-icon" aria-label="Delete">
+              <Trash2 size={14} />
+            </button>
+            <button className="action-icon" aria-label="More options">
+              <MoreHorizontal size={14} />
+            </button>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+
   return (
     <div className="order-list">
       <h1 className="page-title">Order List</h1>
       <div className="filter-bar">
         <div className="actions-group">
           <button className="action-button" aria-label="Add">
-            <PlusIcon />
+            <Plus size={14} />
           </button>
           <button
             className="action-button"
@@ -296,7 +352,11 @@ const OrderList: React.FC = () => {
             <ArrowUpDown size={14} />
           </button>
           <button className="action-button" aria-label="Filter">
-            <FilterIcon />
+            <Icon
+              name={`${theme === "light" ? "filter" : "dark_filter"}`}
+              width="18"
+              height="10"
+            />
           </button>
         </div>
         <div className="search-container">
@@ -398,6 +458,17 @@ const OrderList: React.FC = () => {
         </table>
       </div>
 
+      {/* Mobile Cards Container */}
+      <div className="mobile-orders-container" style={{ minHeight: '200px' }}>
+        {pagedOrders.length > 0 ? (
+          pagedOrders.map((order, index) => renderMobileCard(order, index))
+        ) : (
+          <div style={{ padding: '20px', textAlign: 'center', color: 'var(--text-secondary)' }}>
+            No orders found (Total: {filteredOrders.length}, Page: {currentPage})
+          </div>
+        )}
+      </div>
+
       <div className="pagination-container">
         <div className="pagination">
           <button
@@ -411,7 +482,7 @@ const OrderList: React.FC = () => {
             <button
               key={page}
               className={`pagination-btn ${
-                currentSafePage === page ? "active" : ""
+                currentPage === page ? "active" : ""
               }`}
               onClick={() => setCurrentPage(page)}
             >
